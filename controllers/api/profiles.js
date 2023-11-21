@@ -5,12 +5,23 @@ const User = require("../../models/user");
 
 module.exports = {
   createProfile,
-  getProfile,
+  getMyProfile,
   update,
   deleteProfile,
-  getAll
+  getAll,
+  getProfile
 };
 
+async function getProfile(req, res) {
+  console.log("Hit getProfile controller");
+  // console.log(req.body.username);
+  const profile = await Profile.findOne({ _id: req.body });
+  try {
+    res.json(profile);
+  } catch {
+    console.log(`Failed to retrieve user's profile`);
+  }
+}
 
 async function getAll(req, res) {
     console.log("Hit getAll controller")
@@ -66,7 +77,7 @@ async function update(req, res) {
   }
 }
 
-async function getProfile(req, res) {
+async function getMyProfile(req, res) {
   console.log("Hit getProfile controller");
   const profile = await Profile.findOne({ user: req.user._id });
   try {

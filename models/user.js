@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
+const Profile = require('./profile')
 
 const SALT_ROUNDS = 6;
 
@@ -17,6 +18,10 @@ const userSchema = new Schema({
         trim: true,
         minLength: 3,
         required: true
+    },
+    profile: {
+        type: Schema.Types.ObjectId,
+        ref: Profile
     }
 }, {
     timestamps: true,

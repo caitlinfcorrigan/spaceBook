@@ -3,11 +3,14 @@ const router = express.Router();
 const profilesCtrl = require('../../controllers/api/profiles');
 const ensureLoggedIn = require('../../config/ensureLoggedIn');
 
-// GET /api/profiles/:id
+// GET /api/profiles
+router.get('/all', ensureLoggedIn, profilesCtrl.getAll);
+
+// GET /api/profiles/:id -- Get a friend's profile
 router.get('/:id', ensureLoggedIn, profilesCtrl.getProfile);
 
-// GET /api/profiles
-router.get('/', ensureLoggedIn, profilesCtrl.getAll);
+// GET /api/profiles -- Get your profile using user._id
+router.get('/', ensureLoggedIn, profilesCtrl.getMyProfile);
 
 // POST /api/profiles/:id
 router.post('/:id', ensureLoggedIn, profilesCtrl.createProfile);

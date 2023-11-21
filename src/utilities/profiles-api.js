@@ -4,8 +4,13 @@ import sendRequest from "./send-request";
 const BASE_URL = "/api/profiles";
 
 // Retrieve user's profile (controller accesses user via req)
-export function getProfile(user) {
-  return sendRequest(`${BASE_URL}/${user._id}`);
+export function getMyProfile(user) {
+  return sendRequest(`${BASE_URL}/${user.profile}`);
+}
+
+// Get another user's profile using their profile._id
+export function getProfile(profileId) {
+  return sendRequest(`${BASE_URL}/${profileId}`, 'GET', profileId);
 }
 
 export function update(formData) {

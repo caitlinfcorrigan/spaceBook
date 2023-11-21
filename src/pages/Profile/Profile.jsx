@@ -5,12 +5,27 @@ import FriendsList from "../../components/FriendsList/FriendsList";
 import PostComponent from "../../components/PostComponent/PostComponent";
 import "./Profile.css";
 import {getPosts} from "../../utilities/posts-api";
+import { getProfile } from "../../utilities/profiles-api";
 import { ThemeContext } from "../../contexts/ThemeContext";
 
 export default function Profile({ myProfile }) {
   const { theme, toggleTheme } = useContext(ThemeContext);
 
   let { id } = useParams()
+
+  const [currentProfile, setCurrentProfile] = useState()
+
+  // Get the profile based on the ID in the url
+  useEffect(function() {
+    async function getCurrentProfile() {
+      console.log("getting current profile");
+      console.log(id);
+      const currProf = await getProfile(id);
+      console.log(currProf);
+      setCurrentProfile(currProf);
+    }
+    getCurrentProfile();
+  }[id])
 
   // Using pagePosts as it should load the posts for the profile/:id-- not just the logged in user's profile
   const [pagePosts, setPagePosts] = useState([]);
@@ -33,7 +48,7 @@ export default function Profile({ myProfile }) {
   return (
     <div id="profile-container">
       <div id="profile-left-side">
-        <AboutMe myProfile={myProfile} />
+        <AboutMe currentProfile={currentProfile} />
       </div>
       <div id="profile-right-side">
         <FriendsList />

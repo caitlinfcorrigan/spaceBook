@@ -20,13 +20,13 @@ export default function App() {
   const [myProfile, setMyProfile] = useState([]);
 
   useEffect(function () {
-    async function getMyProfile() {
+    async function myProfile() {
       console.log("get myProf");
-      const profile = await profilesAPI.getProfile(user);
+      const profile = await profilesAPI.getMyProfile(user.profile);
       console.log(profile);
       setMyProfile(profile);
     }
-    getMyProfile();
+    myProfile();
   }, [user]);
 
   return (

@@ -4,11 +4,12 @@ import "./NavBar.css";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import React, { useContext } from "react";
 
-export default function NavBar({ user, setUser }) {
+export default function NavBar({ user, setUser, myProfile }) {
   function handleLogOut() {
     userService.logOut();
     // Update state will also cause a re-render
     setUser(null);
+    
   }
   const { toggleTheme } = useContext(ThemeContext);
 
@@ -21,12 +22,12 @@ export default function NavBar({ user, setUser }) {
         All Users
       </Link>
       &nbsp; | &nbsp;
-      <Link to={"/profiles/"+user._id} className="nav-links">
+      <Link to={"/profiles/"+user?._id} className="nav-links">
         Profile
       </Link>
       &nbsp; | &nbsp;
       <Link to="/" className="nav-links">
-      Home Page
+        Home Page
       </Link>
       {/* <p>Welcome, {user.name}</p>  maybe we will use this */}
       <div id="right-side-navbar">

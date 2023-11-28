@@ -19,22 +19,25 @@ export default function App() {
 
   const [myProfile, setMyProfile] = useState([]);
 
-  useEffect(function () {
-    async function myProfile() {
-      console.log("get myProf");
-      const profile = await profilesAPI.getMyProfile(user.profile);
-      console.log(profile);
-      setMyProfile(profile);
-    }
-    myProfile();
-  }, [user]);
+  useEffect(
+    function () {
+      async function myProfile() {
+        console.log("get myProf");
+        const profile = await profilesAPI.getMyProfile(user.profile);
+        // console.log(profile);
+        setMyProfile(profile);
+      }
+      myProfile();
+    },
+    [user]
+  );
 
   return (
     <div data-theme={theme}>
       <main className="App">
         {user ? (
           <>
-            <NavBar user={user} setUser={setUser} />
+            <NavBar user={user} setUser={setUser} myProfile={myProfile} />
             <Routes>
               <Route
                 path="/profiles/:id"
@@ -46,13 +49,19 @@ export default function App() {
                   <ProfileEditPage
                     myProfile={myProfile}
                     setMyProfile={setMyProfile}
+                    setUser={setUser}
                   />
                 }
               />
               {/*need id defined  ^^^^^ */}
               <Route
                 path="/profiles"
-                element={<AllProfiles myProfile={myProfile} setMyProfile={setMyProfile} />}
+                element={
+                  <AllProfiles
+                    myProfile={myProfile}
+                    setMyProfile={setMyProfile}
+                  />
+                }
               />
               <Route path="/" element={<NewsFeed myProfile={myProfile} />} />
             </Routes>

@@ -9,8 +9,11 @@ const postSchema = new Schema({
     },
     author: {
         type: Schema.Types.ObjectId,
-        ref: 'Profile'
+        ref: 'Profile',
+        required: true
     }
+}, {
+    timestamps: true,
 })
 
 module.exports = mongoose.model('Post', postSchema)

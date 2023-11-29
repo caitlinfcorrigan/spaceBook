@@ -1,4 +1,0 @@
-export default function handleChange(evt) {
-    const newFormData = { ...formData, [evt.target.name]: evt.target.value };
-    setFormData(newFormData);
-}
